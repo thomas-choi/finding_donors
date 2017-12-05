@@ -20732,48 +20732,58 @@ It is a ratio of true positives(words classified as spam, and which are actually
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <ul>
-<li><p>Decision Trees (ref: <a href="http://scikit-learn.org/stable/modules/tree.html">http://scikit-learn.org/stable/modules/tree.html</a> )</p>
-<ul>
+<li>Decision Trees (ref: <a href="http://scikit-learn.org/stable/modules/tree.html">http://scikit-learn.org/stable/modules/tree.html</a> )<ul>
 <li>Real-world application: face completion with multi-output estimators</li>
 <li>Weakness:<ul>
-<li>tend to be overfitting if features is large compare to data sample. The problem that we are working on have 45K of data with 103 features after normalization would not cause a problem.</li>
-<li>unstable. Different tree is generated even small data change. Since we are working on census data that will not be changed very often. This should not impact the prediction.</li>
+<li>tend to be overfitting if features is large compare to data sample. </li>
+<li>unstable. Different tree is generated even small data change. </li>
 </ul>
 </li>
 <li>Strength:<ul>
-<li>Able to handle numerical such as age, capital-gain, capital-loss, and categorical data like, marital-status, relationship, sex, race, etc.</li>
-<li>predict time is log(N) that should be good for data size of current problem of 45K.</li>
+<li>Able to handle both continuous and discrete data</li>
+<li>Performan feature selection</li>
+<li>No effort for data preparation</li>
+<li>Predict Time is Log(N), that N is data point for training.</li>
+</ul>
+</li>
+<li>Decision Trees model is good pick for this project that it can handle both discreted and continuous data for this project. The low requirement of data preparation actually can save some effort in the previous section. The fast predict time of DT is also one advantage for this project with 45,000 data points. Even though the data has 103 features but DT is able to preform the feature selection that will help the preformance of DT for this project. Overall time comparsion, it is better than SVM and KNN. 
+Since the project is based census data that will not be changed very often. The unstable DT will not happened. Overfitting may not happen that the data set is much larger the features.</li>
 </ul>
 </li>
 </ul>
-</li>
+<ul>
 <li><p>Ensemble Methods of AdaBoost (ref: <a href="http://www.nickgillian.com/wiki/pmwiki.php/GRT/AdaBoost">http://www.nickgillian.com/wiki/pmwiki.php/GRT/AdaBoost</a> )</p>
 <ul>
-<li>Real-world application: face completion with multi-output estimators</li>
+<li>Real-world application: face detection</li>
 <li>Weakness:<ul>
-<li>AdaBoost can be sensitive to noisy data and outliers. But we don't have outliers found during the data preprocessing.</li>
+<li>AdaBoost can be sensitive to noisy data and outliers. </li>
 </ul>
 </li>
 <li>Strength:<ul>
-<li>AdaBoost use DecisionTreeClassifier as base estimator for iteration modelling. It will become a strong classifier after multipty iteration than the regular DecisionTreeClassifier.</li>
-<li>This is a learner model of classification and is good fit our problem with almost 95% of the features is right for classification.</li>
+<li>AdaBoost can be used for classification and regression problems.</li>
+<li>It improve accura</li>
+<li>The algorithm able find out important features</li>
+<li>few parameters to tweak</li>
+<li>It does not overfit easily becuase it take predictions from a series of trained weak learners.</li>
 </ul>
 </li>
+<li>Again AdaBoost Classifier is picked for this mainly discreted data project. We have 103 features here that the learner is handled fast by it's nature to detect important features. The training time should not take long for our data set since it has to train multiply weak learners which by default is a one depth level decision tree. </li>
 </ul>
 </li>
 <li><p>Stochastic Gradient Descent Classifier (SGDC)  (ref: <a href="http://scikit-learn.org/stable/modules/sgd.html#classification">http://scikit-learn.org/stable/modules/sgd.html#classification</a>)</p>
 <ul>
-<li>Real-world application:  text classification and natural language processing</li>
+<li>Real-world application:  large-scale ML problem</li>
 <li>Weakness:<ul>
-<li>sensitive to more features</li>
-<li>Need more tuning on parameter with iterations</li>
+<li>sensitive to feature scaling.</li>
+<li>Need a number of hyperparameters of regularization parameter and the number of iterations. </li>
 </ul>
 </li>
 <li>Strength:<ul>
-<li>Efficiency for 100K data and 100K features ~ O(N). The data set of this problem has only 45K with 103 features will be good fit for this learner model.</li>
+<li>Efficiency even for more 10^5 data and 10^5 features</li>
 <li>Ease of implementation</li>
 </ul>
 </li>
+<li>This SGDC is naturally good for our problem that has 45K data and 103 features. Through the attributes coef, the classifier shows the important features that help to eliminate non critical features. The only concern is the model require Model Tuning with different parameters to improve accuracy/fbeta-score without overfitting.</li>
 </ul>
 </li>
 </ul>
